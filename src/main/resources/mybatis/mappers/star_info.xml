@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+ <mapper namespace="mapper.starInfo">
+ 
+ 	<insert id="insertStarInfo" parameterType="java.util.Map">
+		<![CDATA[
+			INSERT INTO T_STAR_INFO (star_cd, rocket_cd, star_nickname, area)
+			VALUES (#{star_cd}, #{rocket_cd}, #{star_nickname}, #{area})
+		]]>
+	</insert>
+	
+	<select id="selectMaxStarCD" resultType="String">
+		<![CDATA[
+			SELECT NVL(MAX(to_number(star_cd)), 0) + 1 FROM T_STAR_INFO
+		]]>
+	</select>
+	
+	<select id="selectCateCD" parameterType="String" resultType="String">
+		<![CDATA[
+			SELECT cate_cd 
+			FROM t_category
+			where cate_s = #{cate_s}
+		]]>
+	</select>
+ 
+ 	<select id="selectStarCD" resultType="String" parameterType="String">
+ 		<![CDATA[
+			SELECT NVL(MAX(STAR_CD), '0')
+			FROM T_STAR_INFO tsi
+			JOIN T_ROCKET_INFO tri 
+			ON tsi.ROCKET_CD = tri.ROCKET_CD 
+			WHERE tri.ROCKET_CD = #{rocket_cd}
+		]]>
+ 	</select>
+ 
+ </mapper>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 2.1//EN"
+       "http://tiles.apache.org/dtds/tiles-config_2_1.dtd">
+
+<tiles-definitions>
+	
+	<!-- 공통 레이아웃의 뷰이름 --> 		   <!-- 전체 레이아웃을 정하는 jsp -->
+	<definition name="baseLayout" template="/WEB-INF/views/common/layout.jsp">
+		<put-attribute name="title" value="" />		<!-- 레이아웃에서 상단구성하는 JSP 위치 -->
+		<put-attribute name="header"  value="/WEB-INF/views/common/header.jsp"/>
+		<put-attribute name="side" value="" />	<!-- 레리아웃에서 사이드 메뉴를 구성하는 JSP 위치 -->
+		<put-attribute name="body" value="" />	<!-- value를 비워두면 선택에 따라 값이 바뀜 -->
+		<put-attribute name="footer" value="/WEB-INF/views/common/footer.jsp" />
+	</definition>
+	
+	<!-- 메인 화면의 뷰이름 --> <!-- 기본 레이아웃은 baseLayout을 상속받음 -->
+	<definition name="common/main" extends="baseLayout" >
+		<put-attribute name="title" value="메인페이지" />
+		<put-attribute name="body" value="/WEB-INF/views/common/main.jsp" />	<!-- 레이아웃에서 본문표시할 JSP 위치 -->
+	</definition>
+	
+	<definition name="home" extends="baseLayout" >
+		<put-attribute name="title" value="메인페이지" />
+		<put-attribute name="body" value="/WEB-INF/views/home.jsp" />	<!-- 레이아웃에서 본문표시할 JSP 위치 -->
+	</definition>
+	
+	<definition name="test/detail2" extends="baseLayout" >
+		<put-attribute name="title" value="세부분야설정" />
+		<put-attribute name="body" value="/WEB-INF/views/test/detail2.jsp" />	<!-- 레이아웃에서 본문표시할 JSP 위치 -->
+	</definition>
+	
+	<definition name="survey/survey" extends="baseLayout" >
+		<put-attribute name="title" value="세부분야설정" />
+		<put-attribute name="body" value="/WEB-INF/views/survey/survey.jsp" />	<!-- 레이아웃에서 본문표시할 JSP 위치 -->
+	</definition>
+	
+	<definition name="starcategory/starcategory_IT" extends="baseLayout" >
+		<put-attribute name="title" value="세부분야설정" />
+		<put-attribute name="body" value="/WEB-INF/views/starcategory/starcategory_IT.jsp" />	<!-- 레이아웃에서 본문표시할 JSP 위치 -->
+	</definition>
+	
+</tiles-definitions>

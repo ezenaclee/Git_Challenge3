@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<typeAliases>
+		<typeAlias type="com.ezen.develocket.rocketInfo.vo.RocketInfoVO" alias="rocketInfoVO" />
+		<typeAlias type="com.ezen.develocket.inquiry.vo.InquiryVO" alias="inquiryVO" />
+		<typeAlias type="com.ezen.develocket.inquiry.vo.InquiryImgVO" alias="inquiryImgVO" />
+		<typeAlias type="com.ezen.develocket.starInfo.vo.StarInfoVO" alias="starInfoVO" />
+		<typeAlias type="com.ezen.develocket.starInfo.vo.CategoryVO" alias="categoryVO" />
+		<typeAlias type="com.ezen.develocket.starField.vo.StarFieldVO" alias="starFieldVO" />
+		<typeAlias type="com.ezen.develocket.starField.vo.CareerImgVO" alias="careerImgVO" />
+	</typeAliases>
+</configuration>

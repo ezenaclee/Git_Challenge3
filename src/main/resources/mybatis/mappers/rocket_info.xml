@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+ <mapper namespace="mapper.rocketInfo">
+ 
+ 	<insert id="insertRocketInfo" parameterType="rocketInfoVO">
+		<selectKey keyProperty="rocket_cd" resultType="String" order="BEFORE">
+			SELECT NVL(MAX(to_number(rocket_cd)), 0) + 1 FROM T_ROCKET_INFO
+		</selectKey>
+		<![CDATA[
+			INSERT INTO T_ROCKET_INFO (ROCKET_CD, ID, NAME, EMAIL, PASSWORD, PHONE_NUMBER)
+			VALUES (#{rocket_cd}, #{id}, #{name}, #{email}, #{password}, #{phone_number})
+		]]>
+	</insert>
+	
+	<select id="loginByID" resultType="rocketInfoVO" parameterType="rocketInfoVO">
+	   <![CDATA[
+			SELECT *
+			FROM T_ROCKET_INFO
+			WHERE id = #{id} AND password = #{password}
+		]]>
+	</select>
+	
+	<select id="selectAllStarFieldCD" resultType="String" parameterType="String">
+		<![CDATA[
+			SELECT tsf.STAR_FIELD_CD 
+			FROM T_ROCKET_INFO tri , T_STAR_INFO tsi , T_STAR_FIELD tsf 
+			WHERE tri.ROCKET_CD = tsi.ROCKET_CD 
+			AND tsi.STAR_CD = tsf.STAR_CD 
+			AND tri.ROCKET_CD = #{rocket_cd}
+		]]>
+	</select>
+ 
+ </mapper>

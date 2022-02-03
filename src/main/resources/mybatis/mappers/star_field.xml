@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+ <mapper namespace="mapper.starField">
+ 
+ 	<insert id="insertStarField" parameterType="java.util.Map">
+		<![CDATA[
+			INSERT INTO DEVELOCKET.T_STAR_FIELD
+			(STAR_FIELD_CD, STAR_CD, CATE_CD, PROFILE_IMG, SHORT_INTRO, DETAIL_INTRO, CAREER, BUSINESS_IMG, QNA)
+			VALUES(#{star_field_cd}, #{star_cd}, #{cate_cd}, null, null, null, null, null, null)
+		]]>
+ 	</insert>
+ 	
+ 	<select id="selectMaxStarFieldCD" resultType="String">
+ 		<![CDATA[
+			SELECT NVL(MAX(to_number(star_field_cd)), 0) + 1 FROM t_star_field
+		]]>
+ 	</select>
+ 	
+ 	<select id="selectStarField" resultType="starFieldVO" parameterType="String">
+ 		<![CDATA[
+			SELECT *
+			FROM t_star_field
+			WHERE star_field_cd = #{star_field_cd}
+		]]>
+ 	</select>
+ 	
+ 	<select id="selectImageFileList" resultType="careerImgVO" parameterType="String">
+ 		<![CDATA[
+			SELECT *
+			FROM t_career_img
+			WHERE star_field_cd = #{star_field_cd}
+			ORDER BY registor_date
+		]]>
+ 	</select>
+ 	
+ 	
+ 	
+ 	<update id="updateStarField" parameterType="java.util.Map">
+ 		<![CDATA[
+			UPDATE T_STAR_FIELD 
+			SET PROFILE_IMG = #{profile_img}, SHORT_INTRO = #{short_intro}, DETAIL_INTRO = #{detail_intro}, CAREER = #{career}, BUSINESS_IMG = #{business_img}, QNA = #{qna}
+			WHERE STAR_FIELD_CD = #{star_field_cd}
+		]]>
+ 	</update>
+ 	
+ 	<update id="updateImageFile" parameterType="java.util.List">
+ 		<foreach collection="list" item="item" open="DECLARE BEGIN" separator=";" close="; END;">
+			<choose>
+				<when test="item.imageFileName != null">
+					UPDATE T_CAREER_IMG 
+					SET imageFileName = #{item.imageFileName}
+					WHERE STAR_FIELD_CD = #{item.star_field_cd} AND CAREER_IMG_CD = #{item.career_img_cd}
+				</when>
+				<otherwise>
+					
+				</otherwise>
+			</choose>
+		</foreach>
+ 	</update>
+ 	
+ 	<insert id="insertModNewImage" parameterType="java.util.Map">
+		<foreach collection="list" item="item" open="INSERT ALL" separator=" " close="SELECT * FROM DUAL">
+			INTO T_CAREER_IMG (CAREER_IMG_CD , IMAGEFILENAME , STAR_FIELD_CD , REGISTOR_DATE)
+			VALUES(#{item.career_img_cd}, #{item.imageFileName}, #{item.star_field_cd}, sysdate)
+		</foreach>
+	</insert>
+	
+	<select id="selectNewCareerImgCD" resultType="String">
+		<![CDATA[
+			select nvl(max(to_number(CAREER_IMG_CD)),0) FROM T_CAREER_IMG
+		]]>
+	</select>
+ 
+ 
+ 
+ 	<delete id="deleteModImage" parameterType="careerImgVO">
+ 		<![CDATA[
+			DELETE 
+			FROM T_CAREER_IMG 
+			WHERE CAREER_IMG_CD = #{career_img_cd} AND STAR_FIELD_CD = #{star_field_cd}
+		]]>
+ 	</delete>
+ 
+ </mapper>
